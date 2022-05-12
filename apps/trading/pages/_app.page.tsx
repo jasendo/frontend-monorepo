@@ -44,6 +44,8 @@ function VegaTradingApp({ Component, pageProps }: AppProps) {
                 href="https://static.vega.xyz/favicon.ico"
               />
               <link rel="stylesheet" href="https://static.vega.xyz/fonts.css" />
+              {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+              <script src="./env-config.js" type="text/javascript" />
             </Head>
             <div className="h-full dark:bg-black dark:text-white-60 bg-white text-black-60 grid grid-rows-[min-content,1fr]">
               <div className="flex items-stretch border-b-[7px] border-vega-yellow">
