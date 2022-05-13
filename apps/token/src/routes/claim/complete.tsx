@@ -6,6 +6,7 @@ import {
 } from '@vegaprotocol/ui-toolkit';
 import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { ENV } from '../../config/env';
 
 import type { BigNumber } from '../../lib/bignumber';
 import { formatNumber } from '../../lib/format-number';
@@ -38,13 +39,21 @@ export const Complete = ({
       {commitTxHash && (
         <p style={{ margin: 0 }}>
           {t('Link transaction')}:{' '}
-          <EtherscanLink tx={commitTxHash} text={commitTxHash} />
+          <EtherscanLink
+            tx={commitTxHash}
+            text={commitTxHash}
+            base={ENV.etherscanUrl}
+          />
         </p>
       )}
       {claimTxHash && (
         <p>
           {t('Claim transaction')}:{' '}
-          <EtherscanLink tx={claimTxHash} text={claimTxHash} />
+          <EtherscanLink
+            tx={claimTxHash}
+            text={claimTxHash}
+            base={ENV.etherscanUrl}
+          />
         </p>
       )}
       <Link to={Routes.VESTING}>

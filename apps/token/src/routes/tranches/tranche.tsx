@@ -14,6 +14,7 @@ import { formatNumber } from '../../lib/format-number';
 import { TrancheItem } from '../redemption/tranche-item';
 import { Routes } from '../router-config';
 import { TrancheLabel } from './tranche-label';
+import { ENV } from '../../config/env';
 
 const TrancheProgressContents = ({
   children,
@@ -79,7 +80,11 @@ export const Tranche = () => {
             const locked = user.remaining_tokens.times(lockedData?.locked);
             return (
               <li className="pb-4" key={i}>
-                <EtherscanLink address={user.address} text={user.address} />
+                <EtherscanLink
+                  address={user.address}
+                  text={user.address}
+                  base={ENV.etherscanUrl}
+                />
                 <TrancheProgressContents>
                   <span>{t('Locked')}</span>
                   <span>{t('Unlocked')}</span>

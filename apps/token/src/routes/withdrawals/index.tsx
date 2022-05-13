@@ -18,6 +18,7 @@ import type { Withdrawals_party_withdrawals } from '@vegaprotocol/withdraws';
 import { useCompleteWithdraw, useWithdrawals } from '@vegaprotocol/withdraws';
 import { TransactionDialog } from '@vegaprotocol/web3';
 import { WithdrawalStatus } from '../../__generated__/globalTypes';
+import { ENV } from '../../config/env';
 
 const Withdrawals = () => {
   const { t } = useTranslation();
@@ -153,6 +154,7 @@ export const Withdrawal = ({ withdrawal, complete }: WithdrawalProps) => {
               text={truncateMiddle(
                 withdrawal.details?.receiverAddress as string
               )}
+              base={ENV.etherscanUrl}
             />
           </span>
         </KeyValueTableRow>

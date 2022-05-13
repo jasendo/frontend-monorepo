@@ -20,6 +20,7 @@ interface TxRowProps {
   status: EthTxStatus;
   txHash: string | null;
   confirmations: number;
+  etherscanUrl: string;
   requiredConfirmations: number;
   highlightComplete?: boolean;
 }
@@ -29,6 +30,7 @@ export const TxRow = ({
   txHash,
   confirmations,
   requiredConfirmations,
+  etherscanUrl,
   highlightComplete = true,
 }: TxRowProps) => {
   if (status === EthTxStatus.Pending) {
@@ -43,6 +45,7 @@ export const TxRow = ({
           tx={txHash || ''}
           className="text-vega-pink dark:text-vega-yellow"
           text={t('View on Etherscan')}
+          base={etherscanUrl}
         />
       </p>
     );
@@ -60,6 +63,7 @@ export const TxRow = ({
           tx={txHash || ''}
           className="text-vega-pink dark:text-vega-yellow"
           text={t('View on Etherscan')}
+          base={etherscanUrl}
         />
       </p>
     );

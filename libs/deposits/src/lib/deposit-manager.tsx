@@ -9,6 +9,7 @@ import { useGetAllowance } from './use-get-allowance';
 import { useSubmitFaucet } from './use-submit-faucet';
 import { EthTxStatus, TransactionDialog } from '@vegaprotocol/web3';
 import { useTokenContract, useBridgeContract } from '@vegaprotocol/web3';
+import { FAUCETABLE } from '../config';
 
 interface ERC20AssetSource {
   __typename: 'ERC20';
@@ -34,6 +35,7 @@ interface DepositManagerProps {
   bridgeAddress: string;
   assets: Asset[];
   initialAssetId?: string;
+  etherscanUrl: string;
 }
 
 export const DepositManager = ({
@@ -41,6 +43,7 @@ export const DepositManager = ({
   bridgeAddress,
   assets,
   initialAssetId,
+  etherscanUrl,
 }: DepositManagerProps) => {
   const [assetId, setAssetId] = useState<string | undefined>(initialAssetId);
 
@@ -54,7 +57,7 @@ export const DepositManager = ({
     asset?.source.__typename === 'ERC20'
       ? asset.source.contractAddress
       : undefined,
-    process.env['NX_VEGA_ENV'] !== 'MAINNET'
+    FAUCETABLE
   );
   const bridgeContract = useBridgeContract();
 
@@ -102,14 +105,23 @@ export const DepositManager = ({
         limits={limits}
         allowance={allowance}
       />
-      <TransactionDialog {...approve.transaction} name="approve" />
-      <TransactionDialog {...faucet.transaction} name="faucet" />
+      <TransactionDialog
+        {...approve.transaction}
+        name="approve"
+        etherscanUrl={etherscanUrl}
+      />
+      <TransactionDialog
+        {...faucet.transaction}
+        name="faucet"
+        etherscanUrl={etherscanUrl}
+      />
       <TransactionDialog
         {...deposit}
         name="deposit"
         confirmed={Boolean(confirmationEvent)}
         // Must wait for additional confirmations for Vega to pick up the Ethereum transaction
         requiredConfirmations={requiredConfirmations}
+        etherscanUrl={etherscanUrl}
       />
     </>
   );

@@ -2,6 +2,7 @@ import { Callout, Intent } from '@vegaprotocol/ui-toolkit';
 import { useTranslation } from 'react-i18next';
 import { EtherscanLink } from '@vegaprotocol/ui-toolkit';
 import type { ReactElement } from 'react';
+import { ENV } from '../../config/env';
 
 export const TransactionComplete = ({
   hash,
@@ -23,7 +24,7 @@ export const TransactionComplete = ({
     >
       {body && <p data-testid="transaction-complete-body">{body}</p>}
       <p>
-        <EtherscanLink tx={hash} />
+        <EtherscanLink tx={hash} base={ENV.etherscanUrl} />
       </p>
       {footer && <p data-testid="transaction-complete-footer">{footer}</p>}
     </Callout>

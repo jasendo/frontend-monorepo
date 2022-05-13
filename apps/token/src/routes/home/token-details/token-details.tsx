@@ -7,6 +7,7 @@ import { useTranches } from '../../../hooks/use-tranches';
 import type { BigNumber } from '../../../lib/bignumber';
 import { formatNumber } from '../../../lib/format-number';
 import { TokenDetailsCirculating } from './token-details-circulating';
+import { ENV } from '../../../config/env';
 
 export const TokenDetails = ({
   totalSupply,
@@ -27,6 +28,7 @@ export const TokenDetails = ({
           address={ADDRESSES.vegaTokenAddress}
           text={ADDRESSES.vegaTokenAddress}
           className="font-mono"
+          base={ENV.etherscanUrl}
         />
       </KeyValueTableRow>
       <KeyValueTableRow>
@@ -36,6 +38,7 @@ export const TokenDetails = ({
           address={ADDRESSES.vestingAddress}
           text={ADDRESSES.vestingAddress}
           className="font-mono"
+          base={ENV.etherscanUrl}
         />
       </KeyValueTableRow>
       <KeyValueTableRow>

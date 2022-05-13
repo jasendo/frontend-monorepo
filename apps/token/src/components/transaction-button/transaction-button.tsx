@@ -7,6 +7,7 @@ import { Button, EtherscanLink } from '@vegaprotocol/ui-toolkit';
 import { Error, HandUp, Tick } from '../icons';
 import { Loader } from '../loader';
 import { StatefulButton } from '../stateful-button';
+import { ENV } from '../../config/env';
 
 interface TransactionButtonProps {
   text: string;
@@ -142,7 +143,11 @@ export const TransactionButtonFooter = ({
       <div className="transaction-button__footer">
         <p className="flex justify-between items-start m-0 text-ui">
           <span>{t('transaction')}</span>
-          <EtherscanLink text={truncateMiddle(txHash)} tx={txHash} />
+          <EtherscanLink
+            text={truncateMiddle(txHash)}
+            tx={txHash}
+            base={ENV.etherscanUrl}
+          />
         </p>
       </div>
     );

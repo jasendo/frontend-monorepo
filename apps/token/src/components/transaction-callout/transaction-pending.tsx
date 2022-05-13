@@ -2,6 +2,7 @@ import React from 'react';
 import { Callout } from '@vegaprotocol/ui-toolkit';
 import { useTranslation } from 'react-i18next';
 import { EtherscanLink } from '@vegaprotocol/ui-toolkit';
+import { ENV } from '../../config/env';
 
 export const TransactionPending = ({
   hash,
@@ -38,7 +39,7 @@ export const TransactionPending = ({
     <Callout iconName="refresh" title={title}>
       {body && <p data-testid="transaction-pending-body">{body}</p>}
       <p>
-        <EtherscanLink tx={hash} />
+        <EtherscanLink tx={hash} base={ENV.etherscanUrl} />
       </p>
       {footer && <p data-testid="transaction-pending-footer">{footer}</p>}
     </Callout>

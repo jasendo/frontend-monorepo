@@ -19,6 +19,7 @@ export interface WithdrawDialogProps {
   approval: Erc20Approval_erc20WithdrawalApproval | null;
   dialogOpen: boolean;
   onDialogChange: (isOpen: boolean) => void;
+  etherscanUrl: string;
 }
 
 export const WithdrawDialog = ({
@@ -27,8 +28,9 @@ export const WithdrawDialog = ({
   approval,
   dialogOpen,
   onDialogChange,
+  etherscanUrl,
 }: WithdrawDialogProps) => {
-  const { intent, ...props } = getProps(approval, vegaTx, ethTx);
+  const { intent, ...props } = getProps(approval, vegaTx, ethTx, etherscanUrl);
   return (
     <Dialog open={dialogOpen} intent={intent} onChange={onDialogChange}>
       <DialogWrapper {...props} />
@@ -78,7 +80,8 @@ interface DialogProps {
 const getProps = (
   approval: Erc20Approval_erc20WithdrawalApproval | null,
   vegaTx: VegaTxState,
-  ethTx: EthTxState
+  ethTx: EthTxState,
+  etherscanUrl: string
 ) => {
   const vegaTxPropsMap: Record<VegaTxStatus, DialogProps> = {
     [VegaTxStatus.Default]: {
@@ -153,6 +156,7 @@ const getProps = (
             tx={ethTx.txHash || ''}
             className="text-vega-pink dark:text-vega-yellow"
             text={t('View on Etherscan')}
+            base={etherscanUrl}
           />
         </Step>
       ),
@@ -168,6 +172,7 @@ const getProps = (
             tx={ethTx.txHash || ''}
             className="text-vega-pink dark:text-vega-yellow"
             text={t('View on Etherscan')}
+            base={etherscanUrl}
           />
         </Step>
       ),

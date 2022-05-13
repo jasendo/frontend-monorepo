@@ -20,9 +20,13 @@ import type { Withdrawals_party_withdrawals } from './__generated__/Withdrawals'
 
 export interface WithdrawalsTableProps {
   withdrawals: Withdrawals_party_withdrawals[];
+  etherscanUrl: string;
 }
 
-export const WithdrawalsTable = ({ withdrawals }: WithdrawalsTableProps) => {
+export const WithdrawalsTable = ({
+  withdrawals,
+  etherscanUrl,
+}: WithdrawalsTableProps) => {
   const { transaction, submit } = useCompleteWithdraw();
 
   return (
@@ -50,6 +54,7 @@ export const WithdrawalsTable = ({ withdrawals }: WithdrawalsTableProps) => {
           valueFormatter={({ value }: ValueFormatterParams) => {
             return truncateByChars(value);
           }}
+          cellRendererParams={{ etherscanUrl }}
         />
         <AgGridColumn
           headerName="Created at"
@@ -62,25 +67,39 @@ export const WithdrawalsTable = ({ withdrawals }: WithdrawalsTableProps) => {
           headerName="Status"
           field="status"
           cellRenderer="StatusCell"
-          cellRendererParams={{ complete: submit }}
+          cellRendererParams={{ complete: submit, etherscanUrl }}
         />
       </AgGrid>
-      <TransactionDialog name="withdraw" {...transaction} />
+      <TransactionDialog
+        name="withdraw"
+        {...transaction}
+        etherscanUrl={etherscanUrl}
+      />
     </>
   );
 };
 
 export interface StatusCellProps extends ICellRendererParams {
   complete: (withdrawalId: string) => void;
+  etherscanUrl: string;
 }
 
-export const StatusCell = ({ value, data, complete }: StatusCellProps) => {
+export const StatusCell = ({
+  value,
+  data,
+  complete,
+  etherscanUrl,
+}: StatusCellProps) => {
   if (data.pendingOnForeignChain) {
     return (
       <div className="flex justify-between gap-8">
         {t('Pending')}
         {data.txHash && (
-          <EtherscanLink tx={data.txHash} text={t('View on Etherscan')} />
+          <EtherscanLink
+            tx={data.txHash}
+            text={t('View on Etherscan')}
+            base={etherscanUrl}
+          />
         )}
       </div>
     );
@@ -92,7 +111,11 @@ export const StatusCell = ({ value, data, complete }: StatusCellProps) => {
         {data.txHash ? (
           <>
             {t('Finalized')}
-            <EtherscanLink tx={data.txHash} text={t('View on Etherscan')} />
+            <EtherscanLink
+              tx={data.txHash}
+              text={t('View on Etherscan')}
+              base={etherscanUrl}
+            />
           </>
         ) : (
           <>
@@ -109,6 +132,12 @@ export const StatusCell = ({ value, data, complete }: StatusCellProps) => {
   return value;
 };
 
-const RecipientCell = ({ value, valueFormatted }: ICellRendererParams) => {
-  return <EtherscanLink address={value} text={valueFormatted} />;
+const RecipientCell = ({
+  value,
+  valueFormatted,
+  etherscanUrl,
+}: ICellRendererParams & { etherscanUrl: string }) => {
+  return (
+    <EtherscanLink address={value} text={valueFormatted} base={etherscanUrl} />
+  );
 };

@@ -6,6 +6,7 @@ import { DepositManager } from '@vegaprotocol/deposits';
 import { t } from '@vegaprotocol/react-helpers';
 import { Splash } from '@vegaprotocol/ui-toolkit';
 import { ASSET_FRAGMENT } from '../../../lib/query-fragments';
+import { ENV } from '../../../lib/config/env';
 
 const DEPOSIT_PAGE_QUERY = gql`
   ${ASSET_FRAGMENT}
@@ -46,6 +47,7 @@ export const DepositContainer = ({
             requiredConfirmations={ethereumConfig.confirmations}
             assets={data.assets}
             initialAssetId={assetId}
+            etherscanUrl={ENV.etherscanUrl}
           />
         );
       }}

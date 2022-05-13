@@ -15,9 +15,10 @@ import { ApolloProvider } from '@apollo/client';
 import { AppLoader } from '../components/app-loader';
 import { VegaWalletConnectButton } from '../components/vega-wallet-connect-button';
 import './styles.css';
+import { ENV } from '../lib/config/env';
 
 function VegaTradingApp({ Component, pageProps }: AppProps) {
-  const client = useMemo(() => createClient(process.env['NX_VEGA_URL']), []);
+  const client = useMemo(() => createClient(ENV.vegaUrl), []);
   const [vegaWallet, setVegaWallet] = useState({
     connect: false,
     manage: false,

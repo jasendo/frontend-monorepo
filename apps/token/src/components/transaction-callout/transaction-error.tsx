@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { EtherscanLink } from '@vegaprotocol/ui-toolkit';
 import type { Error } from '../icons';
+import { ENV } from '../../config/env';
 
 export interface TransactionErrorProps {
   error: Error | null;
@@ -22,7 +23,7 @@ export const TransactionError = ({
       <p>{error ? error.message : t('Something went wrong')}</p>
       {hash ? (
         <p>
-          <EtherscanLink tx={hash} />
+          <EtherscanLink tx={hash} base={ENV.etherscanUrl} />
         </p>
       ) : null}
       <Button onClick={() => onActionClick()}>{t('Try again')}</Button>

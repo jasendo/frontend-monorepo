@@ -17,6 +17,7 @@ import { ConnectToVega } from './connect-to-vega';
 import { NodeList } from './node-list';
 import { useVegaWallet } from '@vegaprotocol/wallet';
 import { truncateMiddle } from '../../lib/truncate-middle';
+import { ENV } from '../../config/env';
 
 export const Staking = ({ data }: { data?: StakingQueryResult }) => {
   const { t } = useTranslation();
@@ -75,7 +76,11 @@ export const StakingStepConnectWallets = () => {
       <Callout intent={Intent.Success} iconName="tick" title={'Connected'}>
         <p>
           {t('Connected Ethereum address')}&nbsp;
-          <EtherscanLink address={account} text={account} />
+          <EtherscanLink
+            address={account}
+            text={account}
+            base={ENV.etherscanUrl}
+          />
         </p>
         <p>
           {t('stakingVegaWalletConnected', {

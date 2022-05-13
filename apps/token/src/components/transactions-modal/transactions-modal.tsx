@@ -13,6 +13,7 @@ import { truncateMiddle } from '../../lib/truncate-middle';
 import { Tick } from '../icons';
 import { Loader } from '../loader';
 import { Modal } from '../modal';
+import { ENV } from '../../config/env';
 
 const TransactionModalTh = ({ children }: { children: React.ReactNode }) => (
   <th className="border-b border-black-25 text-black-60 text-left font-normal">

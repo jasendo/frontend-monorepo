@@ -1,11 +1,10 @@
 import classNames from 'classnames';
 import type { AnchorHTMLAttributes } from 'react';
 
-const ETHERSCAN_URL = process.env['NX_ETHERSCAN_URL'] as string;
-
 interface BaseEtherscanLinkProps
   extends AnchorHTMLAttributes<HTMLAnchorElement> {
   text?: string;
+  base: string;
 }
 
 interface EtherscanAddressLinkProps extends BaseEtherscanLinkProps {
@@ -26,6 +25,7 @@ type EtherscanLinkProps =
 export const EtherscanLink = ({
   text,
   className,
+  base,
   ...props
 }: EtherscanLinkProps) => {
   let hash: string;
@@ -34,10 +34,10 @@ export const EtherscanLink = ({
 
   if ('tx' in props) {
     hash = props.tx;
-    txLink = `${ETHERSCAN_URL}/tx/${hash}`;
+    txLink = `${base}/tx/${hash}`;
   } else if ('address' in props) {
     hash = props.address;
-    txLink = `${ETHERSCAN_URL}/address/${hash}`;
+    txLink = `${base}/address/${hash}`;
   } else {
     throw new Error('Must provider either "tx" or "address" prop');
   }
