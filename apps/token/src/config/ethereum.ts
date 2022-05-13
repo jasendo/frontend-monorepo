@@ -3,14 +3,15 @@ import {
   EnvironmentConfig,
   EthereumChainIds,
 } from '@vegaprotocol/smart-contracts-sdk';
+import { ENV } from './env';
 
 import type { Networks } from './vega';
 
 type VegaContracts = typeof EnvironmentConfig[Networks];
 
-const appChainId = Number(process.env['NX_ETHEREUM_CHAIN_ID'] || 3);
+const appChainId = Number(ENV.chainId || 3);
 
-export const APP_ENV = process.env['NX_VEGA_ENV'] as Networks;
+export const APP_ENV = ENV.envName as Networks;
 
 const Addresses: Record<number, VegaContracts> = {
   1: EnvironmentConfig.MAINNET,
