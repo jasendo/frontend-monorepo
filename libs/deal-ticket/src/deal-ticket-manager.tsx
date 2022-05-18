@@ -41,6 +41,10 @@ export const DealTicketManager = ({
       return Intent.Danger;
     }
 
+    if (status === VegaTxStatus.Requested) {
+      return Intent.Prompt;
+    }
+
     return Intent.Progress;
   };
 

@@ -210,7 +210,7 @@ export const StakingForm = ({
       <h2 className="text-h4 mb-8">{t('Manage your stake')}</h2>
       <FormGroup>
         <RadioGroup
-          onChange={(e) => {
+          onChange={(e: React.FormEvent<HTMLInputElement>) => {
             // @ts-ignore value does exist on target
             const value = e.target.value;
             setAction(value);

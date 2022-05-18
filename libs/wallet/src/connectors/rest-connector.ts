@@ -15,6 +15,11 @@ interface RestConnectorConfig {
   connector: 'rest';
 }
 
+interface RestConnectorError extends Error {
+  body: string;
+  code: number;
+  headers: { [header: string]: string };
+}
 /**
  * Connector for using the Vega Wallet Service rest api, requires authentication to get a session token
  */
@@ -94,9 +99,12 @@ export class RestConnector implements VegaConnector {
   }
 
   private handleSendTxError(err: unknown) {
-    if (typeof err === 'object' && err && 'body' in err) {
+    if (this.isRestError(err)) {
+      if (err.code === 401) {
+        return { error: 'User rejected' };
+      }
+
       try {
-        // @ts-ignore Not sure why TS can't infer that 'body' does indeed exist on object
         return JSON.parse(err.body);
       } catch {
         // Unexpected response
@@ -109,6 +117,18 @@ export class RestConnector implements VegaConnector {
         error: 'Something went wrong',
       };
     }
+  }
+
+  private isRestError(err: unknown): err is RestConnectorError {
+    if (
+      typeof err === 'object' &&
+      err !== null &&
+      'body' in err &&
+      'code' in err
+    ) {
+      return true;
+    }
+    return false;
   }
 
   private setConfig(cfg: RestConnectorConfig) {

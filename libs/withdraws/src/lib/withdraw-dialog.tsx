@@ -105,13 +105,13 @@ const getProps = (
       title: t('Confirm withdrawal'),
       icon: <Icon name="hand-up" size={20} />,
       intent: Intent.Prompt,
-      children: <Step>Confirm withdrawal in Vega wallet</Step>,
+      children: <Step>{t('Confirm withdrawal in Vega wallet')}</Step>,
     },
     [VegaTxStatus.Pending]: {
       title: t('Withdrawal transaction pending'),
       icon: <Loader size="small" />,
       intent: Intent.Progress,
-      children: <Step>Awaiting transaction</Step>,
+      children: <Step>{t('Awaiting transaction')}</Step>,
     },
   };
 
