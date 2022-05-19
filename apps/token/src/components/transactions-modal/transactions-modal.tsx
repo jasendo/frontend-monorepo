@@ -101,6 +101,7 @@ export const TransactionModal = () => {
                       <EtherscanLink
                         tx={t.tx.hash}
                         text={truncateMiddle(t.tx.hash)}
+                        base={ENV.etherscanUrl}
                       />
                     </TransactionModalTd>
                     <TransactionModalTd>{renderStatus(t)}</TransactionModalTd>

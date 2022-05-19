@@ -89,7 +89,11 @@ const WithdrawPendingContainer = ({
           </li>
         ))}
       </ul>
-      <TransactionDialog name="withdraw" {...transaction} />
+      <TransactionDialog
+        name="withdraw"
+        {...transaction}
+        etherscanUrl={ENV.etherscanUrl}
+      />
     </>
   );
 };
@@ -174,6 +178,7 @@ export const Withdrawal = ({ withdrawal, complete }: WithdrawalProps) => {
               <EtherscanLink
                 tx={withdrawal.txHash}
                 text={truncateMiddle(withdrawal.txHash)}
+                base={ENV.etherscanUrl}
               />
             ) : (
               '-'
